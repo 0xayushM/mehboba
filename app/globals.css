@@ -26,7 +26,7 @@
 .gradient-background {
   background: linear-gradient(350deg, var(--color-secondary-bg), var(--color-black), var(--color-secondary-bg));
   background-size: 180% 180%;
-  animation: gradient-animation 5s ease infinite;
+  /* animation: gradient-animation 5s ease infinite; */
 }
 
 @keyframes gradient-animation {
