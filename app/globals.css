@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+:root {
+  --color-hero: #ebe9e1;  
+  --color-product: #efb11d; 
+  --color-feedback: #d6536d;    
+  --color-about: #ffc0cd;   
+  --color-form: #d5340c;    
+  --color-black: #1D1D1D;
+  --color-primary-bg: #ffe7ff;
+  --color-secondary-bg: #1c0243;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.gradient-background {
+  background: linear-gradient(350deg, var(--color-secondary-bg), var(--color-black), var(--color-secondary-bg));
+  background-size: 180% 180%;
+  animation: gradient-animation 5s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.main-tool-bar {
+  transition: height 0.4s ease, color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.main-tool-bar--scrolled {
+  height: 60px;
+  backdrop-filter: blur(10px);
+}
+
+@media only screen and (max-width: 768px) {
+  .main-tool-bar {
+    height:60px;
+  }
+  .main-tool-bar--scrolled {
+    height:40px;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s forwards;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-30px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 0.7s ease-in-out forwards;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.inputbox {
+  position: relative;
+  width: 100%;
+}
+
+.inputbox label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.inputbox input:focus ~ label,
+.inputbox input:valid ~ label {
+  top: -1rem;
+  left: 1rem;
+  font-size: 0.85rem;
+  color: #3b82f6; /* Tailwind blue-500 */
+}
+
+.float-left {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
