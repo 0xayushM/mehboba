@@ -1,37 +1,29 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import React, { useState, useMemo } from 'react';
+import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
-import ProductCards from './productCards';
+import Image from 'next/image';
 
-function Model({ onClick, clicked }) {
+function Model({ onClick }) {
   const gltf = useLoader(GLTFLoader, '/models/package/package.gltf');
 
-  useEffect(() => {
-    console.log('Loaded GLTF Scene:', gltf.scene);
-  }, [gltf]);
-
-  // Floating animation using sine wave
+  const scene = useMemo(() => gltf.scene.clone(), [gltf.scene]);
   const [positionY, setPositionY] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPositionY((prev) => Math.sin(Date.now() / 500) * 0.1); // Floating effect
-    }, 16);
-    return () => clearInterval(interval);
-  }, []);
+  useFrame(() => {
+    setPositionY(Math.sin(Date.now() / 500) * 0.1); // Floating effect
+    scene.position.y = positionY;
+  });
 
   return (
-    <primitive 
-      object={gltf.scene} 
-      scale={new THREE.Vector3(0.2, 0.2, 0.2)} 
-      position={[0, positionY, 0]} 
-      rotation={[Math.PI / 90, 1, 0]} // Adjust rotation as needed
-      onClick={onClick} // Add click handler
-      castShadow // Enable shadow casting
-      receiveShadow // Enable shadow receiving
+    <primitive
+      object={scene}
+      scale={new THREE.Vector3(0.2, 0.2, 0.2)}
+      position={[0, positionY, 0]}
+      rotation={[Math.PI / 90, 1, 0]}
+      onClick={onClick}
     />
   );
 }
@@ -44,44 +36,88 @@ export default function PackageModel() {
   };
 
   return (
-    <>
-      <Canvas style={{ height: '100vh' }} camera={{ position: [0, 2, 5], fov: 50 }} shadows>
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 10, 10]} intensity={1} castShadow />
-        <directionalLight position={[-10, -10, -10]} intensity={0.5} />
-
-        <Model onClick={handleModelClick} />
-
-        {/* Shadow beneath the model */}
-        <mesh position={[0, -0.1, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-          <circleGeometry args={[0.5, 32]} />
-          <meshStandardMaterial opacity={0.5} transparent color="#000000" />
-        </mesh>
-
-        <OrbitControls enableZoom={false} />
-      </Canvas>
-
-      {showInfo && (
-        <div className="info-box">
-          <div className="box left-box">
-            <img src="/path/to/image1.jpg" alt="Image 1" />
-            <h2>Heading 1</h2>
-            <p>This is some text for the first box.</p>
-          </div>
-          <div className="box right-box">
-            <div className="right-box-item">
-              <img src="/path/to/image2.jpg" alt="Image 2" />
-              <h2>Heading 2</h2>
-              <p>This is some text for the second box.</p>
-            </div>
-            <div className="right-box-item">
-              <img src="/path/to/image3.jpg" alt="Image 3" />
-              <h2>Heading 3</h2>
-              <p>This is some text for the third box.</p>
-            </div>
-          </div>
+    <div className='md:bg-white md:shadow-2xl md:rounded-xl md:m-10 relative'> {/* Added relative positioning */}
+      {!showInfo && (
+        <div className='lg:hidden'>
+          <Canvas
+            style={{ height: '100vh', position: 'relative', zIndex: 10 }} // Set z-index
+            camera={{ position: [0, 2, 5], fov: 70 }}
+            shadows
+            pixelRatio={Math.min(window.devicePixelRatio, 2)}
+          >
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[5, 5, 5]} intensity={1} />
+            <Model onClick={handleModelClick} />
+            <OrbitControls enableZoom={false} enablePan={false} dampingFactor={0.1} rotateSpeed={0.5} />
+          </Canvas>
         </div>
       )}
-    </>
+      <div className='hidden lg:block'>
+        <Canvas
+          style={{ height: '90vh', position: 'relative', zIndex: 10 }} // Set z-index
+          camera={{ position: [0, 2, 5], fov: 50 }}
+          shadows
+          pixelRatio={Math.min(window.devicePixelRatio, 2)}
+        >
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          <Model onClick={handleModelClick} />
+          <OrbitControls enableZoom={false} enablePan={false} dampingFactor={0.1} rotateSpeed={0.5} />
+        </Canvas>
+      </div>
+
+      {showInfo && (
+        <div className="lg:hidden absolute top-0 flex h-full flex-col md:flex-row bg-yellow-400 animate-fadeIn z-0">
+        <div className='flex flex-col items-center justify-center w-full bg-red-400 rounded p-4'>
+          <Image
+            src='/images/diy_kit.png'
+            alt='diy_kit'
+            width={100}
+            height={50}  
+          />
+          <h2 className='text-xl font-bold mt-4'>Card 1</h2>
+          <p>Details about card 1.</p>
+        </div>
+        <div className='flex flex-col items-center justify-center w-full rounded p-4'>
+          <Image
+            src='/images/box.png'
+            alt='box'
+            width={100} 
+            height={50} 
+          />
+          <h2 className='text-xl font-bold mt-4'>Card 2</h2>
+          <p>Details about card 2.</p>
+        </div>
+      </div>
+      )}
+      {showInfo && (
+        <div className="absolute top-0 lg:flex hidden h-full flex-col md:flex-row bg-yellow-400 animate-fadeIn z-0">
+        <div className='flex flex-col items-center justify-center w-full bg-red-400 rounded p-4'>
+          <Image
+            src='/images/diy_kit.png'
+            alt='diy_kit'
+            layout="responsive" // Makes the image responsive
+            width={300} // Original width (for aspect ratio)
+            height={100} // Original height (for aspect ratio)
+            className="max-w-full h-auto" // Set max width to 100% and height to auto
+          />
+          <h2 className='text-xl font-bold mt-4'>Card 1</h2>
+          <p>Details about card 1.</p>
+        </div>
+        <div className='flex flex-col items-center justify-center w-full rounded p-4'>
+          <Image
+            src='/images/box.png'
+            alt='box'
+            layout="responsive" // Makes the image responsive
+            width={300} // Original width (for aspect ratio)
+            height={100} // Original height (for aspect ratio)
+            className="max-w-full h-auto" // Set max width to 100% and height to auto
+          />
+          <h2 className='text-xl font-bold mt-4'>Card 2</h2>
+          <p>Details about card 2.</p>
+        </div>
+      </div>
+      )}
+    </div>
   );
 }

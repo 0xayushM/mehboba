@@ -23,8 +23,6 @@ module.exports = {
       fontFamily: {
         content:['var(--font-poppins)'],
         pacifico: ['var(--font-pacifico)'],
-        subheading:['var(--font-fredoka)'],
-        heading:['var(--font-luckiest)'],
         mainheading:['var(--font-staatliches)'],
       },
     },

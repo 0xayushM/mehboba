@@ -23,10 +23,9 @@ export default function Home() {
       trigger: "#smooth-content",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1,  // This creates the smooth effect on scroll
+      scrub: 1,  
     });
 
-    // Optionally add parallax effect on specific sections
     const sections = document.querySelectorAll(".parallax-section");
     sections.forEach((section) => {
       gsap.fromTo(section, 
@@ -48,12 +47,10 @@ export default function Home() {
         <ParallaxSection image="/images/hero_bg.png">
           <Hero />
         </ParallaxSection>
-        <ParallaxSection image="">
+        <ParallaxSection image="/images/product.jpg">
           <Product />
         </ParallaxSection>
-        <ParallaxSection image="/images/hero.jpeg">
           <About />
-        </ParallaxSection>
         <ParallaxSection image="/images/hero_background.jpg">
           <Form />
         </ParallaxSection>
