@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Hero from "./components/hero";
@@ -11,33 +10,52 @@ import About from "./components/about";
 import Form from "./components/form";
 import ParallaxSection from "./components/parallaxSection";
 
+// Dynamically import gsap with ScrollTrigger plugin
+const gsap = dynamic(() => import("gsap"), { ssr: false });
+const ScrollTrigger = dynamic(() => import("gsap/ScrollTrigger"), { ssr: false, loadableGenerated: { modules: ["gsap/ScrollTrigger"] } });
+
 export default function Home() {
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const initializeGSAP = async () => {
+      if (typeof window !== "undefined") {
+        const { default: gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 
-    // Adding smooth scrolling effect using CSS for a simple alternative
-    document.body.style.scrollBehavior = "smooth";
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
 
-    // Set up ScrollTrigger for individual sections
-    ScrollTrigger.create({
-      trigger: "#smooth-content",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1,  
-    });
+        // Adding smooth scrolling effect using CSS for a simple alternative
+        document.body.style.scrollBehavior = "smooth";
 
-    const sections = document.querySelectorAll(".parallax-section");
-    sections.forEach((section) => {
-      gsap.fromTo(section, 
-        { y: 100, opacity: 0 }, 
-        { y: 0, opacity: 1, scrollTrigger: {
-          trigger: section,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        }}
-      );
-    });
+        // Set up ScrollTrigger for individual sections
+        ScrollTrigger.create({
+          trigger: "#smooth-content",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+        });
+
+        const sections = document.querySelectorAll(".parallax-section");
+        sections.forEach((section) => {
+          gsap.fromTo(
+            section,
+            { y: 100, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+        });
+      }
+    };
+
+    initializeGSAP();
   }, []);
 
   return (
@@ -50,7 +68,7 @@ export default function Home() {
         <ParallaxSection image="/images/product.jpg">
           <Product />
         </ParallaxSection>
-          <About />
+        <About />
         <ParallaxSection image="/images/hero_background.jpg">
           <Form />
         </ParallaxSection>

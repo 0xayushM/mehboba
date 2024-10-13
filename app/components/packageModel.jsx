@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -30,6 +30,14 @@ function Model({ onClick }) {
 
 export default function PackageModel() {
   const [showInfo, setShowInfo] = useState(false);
+  const [pixelRatio, setPixelRatio] = useState(1); // Default pixel ratio
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Set pixel ratio on the client side only
+      setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    }
+  }, []);
 
   const handleModelClick = () => {
     setShowInfo(true); // Set to true when model is clicked
@@ -43,7 +51,7 @@ export default function PackageModel() {
             style={{ height: '100vh', position: 'relative', zIndex: 10 }} // Set z-index
             camera={{ position: [0, 2, 5], fov: 70 }}
             shadows
-            pixelRatio={Math.min(window.devicePixelRatio, 2)}
+            pixelRatio={pixelRatio} // Use state variable
           >
             <ambientLight intensity={0.6} />
             <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -57,7 +65,7 @@ export default function PackageModel() {
           style={{ height: '90vh', position: 'relative', zIndex: 10 }} // Set z-index
           camera={{ position: [0, 2, 5], fov: 50 }}
           shadows
-          pixelRatio={Math.min(window.devicePixelRatio, 2)}
+          pixelRatio={pixelRatio} // Use state variable
         >
           <ambientLight intensity={0.6} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
