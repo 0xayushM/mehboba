@@ -1,23 +1,38 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from 'react';
+import BoxReveal from './BoxReveal';
 
 const Hero = () => {
   return (
-    <section className='h-screen'>
-      <div className=' w-full h-full md:h-screen flex flex-col lg:flex-row'>
-        <div className='relative lg:w-[40%] h-[50%] md:p-20 lg:p-40 lg:pr-0 lg:h-[100%] overflow-visible'>
-        </div>
-        <div className='flex flex-col items-center justify-center lg:w-[60%] p-5 md:p-20 lg:p-40  z-10'>
-          <h1 className='font-mainheading text-secondaryBg text-5xl md:text-7xl lg:text-[7rem]'>
-            Bursting <br /> with Flavor,<span className='text-[#5523a0]'> Crafted <br /> with Love</span>
+    <section className="h-screen md:gradient-background">
+      <div className="h-full p-5 z-10 flex flex-col justify-center items-center gap-0">
+        <BoxReveal delay={0.1}>
+          <h1
+            color="#FFE8FE"
+            className="font-mainheading text-secondaryBg text-[4rem] md:text-[5rem] lg:text-[9rem] leading-none"
+          >
+            Bursting with <span className='font-pacifico flavour-gradient'>Flavour,</span>
           </h1>
-          <p className='font-content text-form font-light text-sm md:text-xl'>Discover premium boba balls that transform every sip into a delightful experience. At <span className='font-mainheading'>Mehboba</span>, we create each ball to deliver perfect texture and taste, ensuring your boba drinks are always extraordinary.</p>
-        </div>
+        </BoxReveal>
+        <BoxReveal delay={0.5}>
+          <h1
+            color="#FFE8FE"
+            className="font-mainheading text-[#5523a0] text-[4rem] md:text-[5rem] lg:text-[9rem] leading-none"
+          >
+            Crafted with <span className='font-pacifico p-2 love-gradient'>Love</span>
+          </h1>
+        </BoxReveal>
+        <BoxReveal delay={0.9}>
+          <div color="#FFE8FE" className='flex justify-center items-center'>
+          <p className="font-content text-justify md:w-1/2 font-light text-sm md:text-xl pt-5">
+            Discover premium boba balls that transform every sip into a delightful experience. At <span className='font-mainheading'>MEHBOBA</span>, we take pride in crafting each boba ball with precision, ensuring the perfect balance of texture and flavor in every bite. Whether you're enjoying a refreshing milk tea, a fruity bubble drink, or a creative beverage, our boba balls elevate your drink to an extraordinary level.
+          </p>
+          </div>
+        </BoxReveal>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
