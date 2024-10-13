@@ -30,28 +30,27 @@ function Model({ onClick }) {
 
 export default function PackageModel() {
   const [showInfo, setShowInfo] = useState(false);
-  const [pixelRatio, setPixelRatio] = useState(1); // Default pixel ratio
+  const [pixelRatio, setPixelRatio] = useState(1); 
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Set pixel ratio on the client side only
       setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
   }, []);
 
   const handleModelClick = () => {
-    setShowInfo(true); // Set to true when model is clicked
+    setShowInfo(true); 
   };
 
   return (
-    <div className='md:bg-white md:shadow-2xl md:rounded-xl md:m-10 relative'> {/* Added relative positioning */}
+    <div className='md:bg-white md:shadow-2xl md:rounded-xl md:m-10 relative'> 
       {!showInfo && (
         <div className='lg:hidden'>
           <Canvas
-            style={{ height: '100vh', position: 'relative', zIndex: 10 }} // Set z-index
+            style={{ height: '100vh', position: 'relative', zIndex: 10 }} 
             camera={{ position: [0, 2, 5], fov: 70 }}
             shadows
-            pixelRatio={pixelRatio} // Use state variable
+            pixelRatio={pixelRatio} 
           >
             <ambientLight intensity={0.6} />
             <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -62,10 +61,10 @@ export default function PackageModel() {
       )}
       <div className='hidden lg:block'>
         <Canvas
-          style={{ height: '90vh', position: 'relative', zIndex: 10 }} // Set z-index
+          style={{ height: '90vh', position: 'relative', zIndex: 10 }} 
           camera={{ position: [0, 2, 5], fov: 50 }}
           shadows
-          pixelRatio={pixelRatio} // Use state variable
+          pixelRatio={pixelRatio} 
         >
           <ambientLight intensity={0.6} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -74,55 +73,60 @@ export default function PackageModel() {
         </Canvas>
       </div>
 
+      {/* {for screen size < lg} */}
+
       {showInfo && (
-        <div className="lg:hidden absolute top-0 flex h-full flex-col md:flex-row bg-yellow-400 animate-fadeIn z-0">
-        <div className='flex flex-col items-center justify-center w-full bg-red-400 rounded p-4'>
+        <div className="lg:hidden absolute top-0 flex h-screen flex-col w-full md:flex-row items-center justify-center animate-fadeIn gap-5 p-4 z-0">
+        <div className='flex flex-col items-center justify-center w-full shadow-2xl bg-white rounded p-4'>
           <Image
             src='/images/diy_kit.png'
             alt='diy_kit'
-            width={100}
-            height={50}  
+            width={140}
+            height={60}  
           />
           <h2 className='text-xl font-bold mt-4'>Card 1</h2>
           <p>Details about card 1.</p>
         </div>
-        <div className='flex flex-col items-center justify-center w-full rounded p-4'>
+        <div className='flex flex-col items-center justify-center w-full shadow-2xl bg-white rounded p-4'>
           <Image
             src='/images/box.png'
             alt='box'
-            width={100} 
-            height={50} 
+            width={140} 
+            height={60} 
           />
           <h2 className='text-xl font-bold mt-4'>Card 2</h2>
           <p>Details about card 2.</p>
         </div>
       </div>
       )}
+
+      {/* {for screen size >= lg} */}
+
       {showInfo && (
-        <div className="absolute top-0 lg:flex hidden h-full flex-col md:flex-row bg-yellow-400 animate-fadeIn z-0">
-        <div className='flex flex-col items-center justify-center w-full bg-red-400 rounded p-4'>
+        <div className="absolute top-0 lg:flex hidden h-full flex-col md:flex-row animate-fadeIn justify-between w-full z-0">
+        <div className='flex flex-col items-center justify-center rounded p-4'>
           <Image
             src='/images/diy_kit.png'
             alt='diy_kit'
-            layout="responsive" // Makes the image responsive
-            width={300} // Original width (for aspect ratio)
-            height={100} // Original height (for aspect ratio)
-            className="max-w-full h-auto" // Set max width to 100% and height to auto
+            layout="responsive" 
+            width={200} 
+            height={100} 
+            className="max-w-full h-auto" 
           />
-          <h2 className='text-xl font-bold mt-4'>Card 1</h2>
-          <p>Details about card 1.</p>
+          <h2 className='text-xl font-mainheading font-bold mt-4'>Card 1</h2>
+          <p className='font-content'>Details about card 1.</p>
         </div>
-        <div className='flex flex-col items-center justify-center w-full rounded p-4'>
+        <div className='flex flex-col items-center justify-center rounded p-4'>
           <Image
             src='/images/box.png'
             alt='box'
-            layout="responsive" // Makes the image responsive
-            width={300} // Original width (for aspect ratio)
-            height={100} // Original height (for aspect ratio)
-            className="max-w-full h-auto" // Set max width to 100% and height to auto
+            layout="responsive" 
+            width={200} 
+            height={100} 
+            className="max-w-full h-auto" 
           />
-          <h2 className='text-xl font-bold mt-4'>Card 2</h2>
-          <p>Details about card 2.</p>
+          <h2 className='text-xl font-mainheading font-bold mt-4'>Card 2</h2>
+          <p className='font-content'>Details about card 2.</p>
         </div>
       </div>
       )}
