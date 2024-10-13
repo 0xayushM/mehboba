@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import BoxReveal from './BoxReveal';
+import BoxReveal from './boxReveal';
 
 const Hero = () => {
   return (

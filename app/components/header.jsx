@@ -10,18 +10,15 @@ const Header = () => {
       const scrollPosition = window.scrollY;
       const vh = window.innerHeight;
 
-      // Change to white if scrolled past 200vh
       if (scrollPosition > 2 * vh && scrollPosition < 3 * vh) {
         setIsTransformed(true);
       }
-      // Change to black if scrolled below 200vh and above 0vh
       else if (scrollPosition > 0 && scrollPosition <= 2 * vh) {
         setIsTransformed(false);
       }
       else if(scrollPosition > 3 * vh) {
         setIsTransformed(false);
       }
-      // Ensure it's white if scrolled back to the top (0vh)
       else {
         setIsTransformed(true);
       }
