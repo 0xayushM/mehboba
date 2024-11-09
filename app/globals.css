@@ -164,8 +164,3 @@
   color: transparent;
 }
 
-@media (max-width: 767px) {
-  .main-tool-bar {
-    color: black; /* Starting color for < md screens */
-  }
-}
