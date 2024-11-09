@@ -28,6 +28,11 @@
   background-size: 180% 180%;
 }
 
+.gradient-background-product {
+  background: linear-gradient(350deg, #5523A0, #9A5EF3, #5523A0);
+  background-size: 180% 180%;
+}
+
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
@@ -157,4 +162,10 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+@media (max-width: 767px) {
+  .main-tool-bar {
+    color: black; /* Starting color for < md screens */
+  }
 }

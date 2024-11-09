@@ -43,7 +43,7 @@ const Form = () => {
   };
 
   return (
-    <section className='h-screen' >
+    <section id='contact' className='h-screen' >
       <div className='w-full h-screen flex flex-col lg:flex-row'>
         <div className='relative lg:w-[40%] h-[50%] md:p-20 lg:p-40 lg:pr-0 lg:h-[100%] overflow-visible'>
           <div className="relative z-[-1] md:z-0">
