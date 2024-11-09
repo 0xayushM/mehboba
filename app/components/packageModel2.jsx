@@ -20,14 +20,14 @@ function Model() {
   return (
     <primitive
       object={scene}
-      scale={new THREE.Vector3(0.28, 0.28, 0.28)}
+      scale={new THREE.Vector3(0.35, 0.35, 0.35)}
       position={[0, positionY, 0]}
       rotation={[Math.PI / 90, 1, 0]}
     />
   );
 }
 
-export default function PackageModel() {
+export default function PackageModel2() {
   const [pixelRatio, setPixelRatio] = useState(1);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function PackageModel() {
   return (
     <div className='relative'>
       <Canvas
-        style={{ height: '100vh', position: 'relative', zIndex: 10 }}
+        style={{ height: '40vh', position: 'relative', zIndex: 10 }}
         camera={{ position: [0, 2, 5], fov: 70 }}
         shadows
         pixelRatio={pixelRatio}
