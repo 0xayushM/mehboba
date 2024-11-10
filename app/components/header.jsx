@@ -12,9 +12,9 @@ const Header = () => {
       const scrollPosition = window.scrollY;
       const vh = window.innerHeight;
 
-      if (scrollPosition > 2 * vh && scrollPosition < 3 * vh) {
+      if (scrollPosition > 1 * vh && scrollPosition < 3 * vh) {
         setIsTransformed(true);
-      } else if (scrollPosition > 0 && scrollPosition <= 2 * vh) {
+      } else if (scrollPosition > 0 && scrollPosition <= 1 * vh) {
         setIsTransformed(false);
       } else if (scrollPosition > 3 * vh) {
         setIsTransformed(false);
@@ -70,11 +70,11 @@ const Header = () => {
               <a href="#products" onClick={closeMenu} className="block hover:text-primary transition-colors">
                 Products
               </a>
-              <a href="#feedback" onClick={closeMenu} className="block hover:text-primary transition-colors">
-                Feedback
-              </a>
               <a href="#about" onClick={closeMenu} className="block hover:text-primary transition-colors">
                 About
+              </a>
+              <a href="#feedback" onClick={closeMenu} className="block hover:text-primary transition-colors">
+                Feedback
               </a>
               <a href="#contact" onClick={closeMenu} className="block hover:text-primary transition-colors">
                 Contact
@@ -98,8 +98,8 @@ const Header = () => {
         <div className="hidden lg:flex space-x-6 text-2xl">
           <a href="#home" className="hover:text-primary transition-colors">Home</a>
           <a href="#products" className="hover:text-primary transition-colors">Products</a>
-          <a href="#feedback" className="hover:text-primary transition-colors">Feedback</a>
           <a href="#about" className="hover:text-primary transition-colors">About</a>
+          <a href="#feedback" className="hover:text-primary transition-colors">Feedback</a>
           <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
         </div>
 

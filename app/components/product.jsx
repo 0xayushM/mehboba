@@ -5,8 +5,8 @@ import React from 'react';
 const Product = () => {
 
   return (
-    <section className='w-full h-full lg:h-screen flex justify-center items-center'>
-      <div id='products' className="h-2/3 w-full grid grid-rows-2 place-items-center z-0 gap-40 lg:gap-0">
+    <section id='products' className='w-full h-full lg:h-screen flex justify-center items-center'>
+      <div  className="h-2/3 w-full grid grid-rows-2 place-items-center z-0 gap-40 lg:gap-0">
 
 
         <div className='flex w-full lg:w-2/3 flex-col lg:flex-row items-center md:justify-center p-4 gap-0'>
