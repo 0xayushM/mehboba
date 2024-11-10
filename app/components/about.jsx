@@ -4,7 +4,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div id='about' className="gradient-background text-primaryBg md:h-screen w-full flex flex-col items-center justify-center p-4 md:p-10">
+    <div id='about' className="gradient-background text-primaryBg h-screen w-full flex flex-col items-center justify-center p-4 md:p-10">
       <h1 className="font-mainheading my-5 md:my-10 text-2xl md:text-3xl lg:text-4xl">
         ABOUT MEHBOBA
       </h1>
@@ -36,9 +36,7 @@ const About = () => {
       </div>
       <div className="items-center justify-center p-4 md:p-8 w-full md:w-4/5">
         <p className="text-sm md:text-lg text-justify leading-relaxed font-content">
-          At <span className="font-mainheading">Mehboba</span>, we believe in the power of shared experiences and the joy of coming together. 💖 Our boba teas are expertly crafted from the finest ingredients,
-          bringing together a delightful fusion of flavors that tell a story with every sip you take. 🥤 Whether you're enjoying a moment with friends or treating yourself to a well-deserved break, our drinks are
-          designed to elevate your day and create unforgettable memories. 🌟 Join us on this flavorful journey and savor the sweet moments that life has to offer. ✨
+        At <span className="font-mainheading">Mehboba</span>, we believe in the joy of shared experiences 💖. Our boba teas are crafted from the finest ingredients, blending flavors that tell a story with every sip 🥤. Whether with friends or enjoying a quiet moment, our drinks are made to elevate your day and create lasting memories 🌟. Join us and savor life’s sweet moments! ✨
         </p>
       </div>
     </div>
