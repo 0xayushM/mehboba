@@ -1,88 +1,97 @@
-import { cn } from "../lib/utils";
-import Marquee from "react-marquee-slider";
+import React, { useEffect, useRef, useState } from 'react';
 
-const reviews = [
-  {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
-  },
-  {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
-  },
-  {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
-  },
-  {
-    name: "Jane",
-    username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jane",
-  },
-  {
-    name: "Jenny",
-    username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
-  },
-  {
-    name: "James",
-    username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/james",
-  },
-];
+const Feedback = () => {
+  const stackAreaRef = useRef(null);
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+  const [feedbackData, setFeedbackData] = useState([
+    { sub: "Jamie C.", content: "MEHBOBA is my new favorite! Flavor and texture are spot on." },
+    { sub: "Alex B.", content: "The best I’ve ever tasted! Highly recommended to everyone." },
+    { sub: "Taylor R.", content: "A must-have in every pantry. Delicious and unique!" },
+    { sub: "Jordan M.", content: "The flavors are incredible, and it’s perfect for my recipes!" },
+    { sub: "Morgan S.", content: "I’m obsessed! MEHBOBA brings joy to every meal." },
+  ]);
+  const [backgroundColors, setBackgroundColors] = useState([
+    "#e7d6ff", "#d5b8fc", "#c195fc", "#aa6dfc", "#9145f7"
+  ]);
 
-const ReviewCard = ({ img, name, username, body }) => {
+  useEffect(() => {
+    rotateCards();
+  }, [feedbackData]);
+
+  function rotateCards() {
+    const cards = stackAreaRef.current.querySelectorAll(".card");
+    let angle = 0;
+
+    cards.forEach((card, index) => {
+      card.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      angle -= 10;
+    });
+  }
+
+  const handleCardClick = () => {
+    setFeedbackData((prevData) => {
+      const updatedData = [...prevData];
+      const topCard = updatedData.shift();
+      updatedData.push(topCard);
+
+      return updatedData;
+    });
+
+    setBackgroundColors((prevColors) => {
+      const updatedColors = [...prevColors];
+      const topColor = updatedColors.shift();
+      updatedColors.push(topColor);
+
+      return updatedColors;
+    });
+  };
+
   return (
-    <figure
-      className={cn(
-        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-        // light styles
-        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-        // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
-      )}
-    >
-      <div className="flex flex-row items-center gap-2">
-        <img className="rounded-full" width="32" height="32" alt="" src={img} />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">
-            {name}
-          </figcaption>
-          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+    <div id="feedback" className="h-full w-full text-secondaryBg">
+      <div className="lg:h-screen w-full h-full flex flex-col items-center justify-center p-10 md:p-32">
+        <div className='flex w-full flex-col lg:flex-row h-full items-center lg:justify-center'>
+          <div className="items-center h-1/2 md:h-full flex justify-center p-4 md:p-8 w-full">
+            <div className="text-sm md:text-lg text-justify w-full leading-relaxed flex flex-col items-center font-mainheading ">
+                <h1 className='text-secondaryBg font-pacifico text-[1.5rem] md:text-[2rem] lg:text-[4rem] leading-none'>Here's what our</h1>
+              <div className='flex'>
+                <h1 className='text-secondaryBg text-[2rem] md:text-[2rem] lg:text-[5rem] leading-none'>customers </h1>
+                <h1 className='text-secondaryBg font-content text-[0.7rem] md:text-[2rem] lg:text-[2.5rem] leading-none pl-2 flex items-center justify-center'>say <br/> about</h1>
+              </div>
+                <h1 className='text-secondaryBg text-[3rem] md:text-[3rem] lg:text-[8rem] leading-none'>MEHBOBA!</h1>
+            </div>
+          </div>
+
+          <div className='h-full w-full'>
+            <div className="w-full h-full flex items-center justify-center flex-col ">
+              <div ref={stackAreaRef} className="stack-area w-full h-full relative items-center flex justify-center">
+                <div className="h-fit flex justify-center items-center top-0 box-border">
+                  <div className="h-full w-full relative">
+                    {feedbackData.map((feedback, index) => (
+                      <div
+                        key={index}
+                        className={`card w-[200px] md:w-[225px] md:h-[225px] lg:w-[350px] h-[200px] lg:h-[350px] box-border p-[15px] sm:p-[35px] rounded-xl flex justify-between flex-col transition-transform duration-500 shadow-xl`}
+                        onClick={index === 0 ? handleCardClick : null} // Only make the top card clickable
+                        style={{
+                          zIndex: feedbackData.length - index, // Dynamic zIndex
+                          backgroundColor: backgroundColors[index], // Dynamic background
+                        }}
+                      >
+                        <div className='bg-white/50 p-5 h-full rounded-lg shadow-lg'>
+                        <div className="font-light text-center leading-none font-mainheading text-3xl md:text-4xl lg:text-5xl"><span className='font-content text-sm md:text-2xl lg:text-3xl leading-tight '>{feedback.content}</span></div>
+                        <div className="">{feedback.sub}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <blockquote className="mt-2 text-sm">{body}</blockquote>
-    </figure>
+    </div>
   );
 };
 
-export default function Feedback() {
-  return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <Marquee pauseOnHover className="[--duration:20s]">
-        {firstRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
-        ))}
-      </Marquee>
-      <Marquee reverse pauseOnHover className="[--duration:20s]">
-        {secondRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
-        ))}
-      </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
-    </div>
-  );
-}
+export default Feedback;

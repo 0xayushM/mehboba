@@ -68,8 +68,13 @@ export default function Home() {
         <ParallaxSection>
           <Product />
         </ParallaxSection>
-        <About />
+        <ParallaxSection>
+          <About />
+        </ParallaxSection>
         <ParallaxSection image="/images/hero_background.jpg">
+          <Feedback/>
+        </ParallaxSection>
+        <ParallaxSection>
           <Form />
         </ParallaxSection>
         <Footer />
