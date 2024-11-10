@@ -4,7 +4,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div id='about' className="gradient-background text-primaryBg lg:h-screen w-full flex flex-col items-center justify-center p-4 md:p-10">
+    <div id='about' className="gradient-background text-primaryBg md:h-screen w-full flex flex-col items-center justify-center p-4 md:p-10">
       <h1 className="font-mainheading my-5 md:my-10 text-2xl md:text-3xl lg:text-4xl">
         ABOUT MEHBOBA
       </h1>

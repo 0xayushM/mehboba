@@ -6,9 +6,9 @@ import PackageModel2 from './packageModel2';
 
 const Hero = () => {
   return (
-    <section id='home' className="lg:h-screen md:gradient-background">
+    <section id='home' className="h-full lg:h-screen md:gradient-background">
       <div className='grid md:grid-cols-2 h-full'>
-        <div className='md:hidden '>
+        <div className='md:hidden pt-10'>
           <PackageModel2/>
         </div>
         <div className='hidden md:block'>

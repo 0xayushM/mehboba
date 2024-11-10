@@ -65,7 +65,7 @@ export default function Home() {
         <ParallaxSection image="/images/hero_bg.png">
           <Hero />
         </ParallaxSection>
-        <ParallaxSection>
+        <ParallaxSection image='/images/product.jpg'>
           <Product />
         </ParallaxSection>
         <ParallaxSection>
