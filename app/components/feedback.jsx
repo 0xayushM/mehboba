@@ -11,7 +11,7 @@ const Feedback = () => {
     { sub: "Morgan S.", content: "I’m obsessed! MEHBOBA brings joy to every meal." },
   ]);
   const [backgroundColors, setBackgroundColors] = useState([
-    "#e7d6ff", "#d5b8fc", "#c195fc", "#aa6dfc", "#9145f7"
+    "#e7d6ff", "#d5b8fc", "#c195fc", "#b07df2", "#a66df1"
   ]);
 
   useEffect(() => {
@@ -76,9 +76,9 @@ const Feedback = () => {
                           backgroundColor: backgroundColors[index], // Dynamic background
                         }}
                       >
-                        <div className='bg-white/50 p-5 h-full rounded-lg shadow-lg'>
-                        <div className="font-light text-center leading-none font-mainheading text-3xl md:text-4xl lg:text-5xl"><span className='font-content text-sm md:text-2xl lg:text-3xl leading-tight '>{feedback.content}</span></div>
-                        <div className="">{feedback.sub}</div>
+                        <div className='h-full flex flex-col justify-between text-center leading-none '>
+                          <div className="font-light font-mainheading text-3xl md:text-4xl lg:text-5xl">" <span className='font-content text-sm md:text-xl lg:text-3xl leading-tight '>{feedback.content}</span> "</div>
+                          <div className="font-pacifico text-lg md:text-xl lg:text-2xl">{feedback.sub}</div>
                         </div>
                       </div>
                     ))}
