@@ -2,46 +2,9 @@
 
 import React, { useState } from 'react';
 import HeroModel from './heroModel';
+import FeedbackForm from './feedbackForm';
 
 const Form = () => {
-  const [email, setEmail] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  // Submit form handler
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage('');
-
-    // Check if email is valid
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage('Please enter a valid email address.');
-      return;
-    }
-
-    // Submit data to the backend (e.g., an API endpoint that handles Excel)
-    try {
-      const response = await fetch('/api/submitFeedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, feedback }),
-      });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        const { message } = await response.json();
-        setErrorMessage(message || 'Something went wrong. Please try again.');
-      }
-    } catch (error) {
-      setErrorMessage('Failed to submit feedback. Please try again later.');
-    }
-  };
-
   return (
     <section id='contact' className='h-screen' >
       <div className='w-full h-screen flex flex-col lg:flex-row'>
@@ -55,7 +18,7 @@ const Form = () => {
           <h1 className='font-mainheading text-5xl md:text-7xl lg:text-[70px] text-center mb-10'>
             We Value Your Feedback
           </h1>
-          
+          <FeedbackForm/>
           </div>
       </div>
     </section>

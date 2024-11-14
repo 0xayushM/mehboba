@@ -1,41 +1,37 @@
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { parse, stringify } from 'json2csv';
+import fs from 'fs';
 import path from 'path';
+import xlsx from 'xlsx';
 
-// Path to the Excel file
-const FILE_PATH = path.resolve('./public/feedback.csv');
-
-export default async function handler(req, res) {
+export default function handler(req, res) {
   if (req.method === 'POST') {
-    const { email, feedback } = req.body;
+    const { name, email, feedback } = req.body;
 
+    // Define the file path for the Excel sheet
+    const filePath = path.resolve(process.cwd(), 'data', 'feedback.xlsx');
+
+    // Load the existing Excel file if it exists, otherwise create a new one
+    let workbook;
     try {
-      // Read the existing feedback data
-      let feedbackData = [];
-      if (existsSync(FILE_PATH)) {
-        const csvData = readFileSync(FILE_PATH, 'utf8');
-        feedbackData = csvData ? parse(csvData, { header: true }) : [];
-      }
-
-      // Check if the email already exists
-      const existingFeedback = feedbackData.find((entry) => entry.email === email);
-      if (existingFeedback) {
-        return res.status(400).json({ message: 'This email has already submitted feedback.' });
-      }
-
-      // Add the new feedback to the data
-      feedbackData.push({ email, feedback });
-
-      // Convert data back to CSV and write to the file
-      const csvString = stringify(feedbackData);
-      writeFileSync(FILE_PATH, csvString, 'utf8');
-
-      return res.status(200).json({ message: 'Feedback submitted successfully!' });
+      workbook = fs.existsSync(filePath) ? xlsx.readFile(filePath) : xlsx.utils.book_new();
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'An error occurred while submitting feedback.' });
+      return res.status(500).json({ error: 'Error reading Excel file' });
+    }
+
+    // Add the data to a new row in the sheet
+    const worksheet = workbook.Sheets['Feedback'] || xlsx.utils.aoa_to_sheet([['Name', 'Email', 'Feedback']]);
+    const newRow = [[name, email, feedback]];
+    xlsx.utils.sheet_add_aoa(worksheet, newRow, { origin: -1 });
+
+    // Update the worksheet in the workbook and write the file
+    workbook.Sheets['Feedback'] = worksheet;
+    try {
+      xlsx.writeFile(workbook, filePath);
+      res.status(200).json({ message: 'Feedback saved successfully!' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error writing to Excel file' });
     }
   } else {
-    return res.status(405).json({ message: 'Method not allowed' });
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
