@@ -12,6 +12,7 @@ const Footer = () => {
             width={250}
             height={60}  
           />
+        <h1> MEHBOBA</h1>
     </div>
   )
 }
