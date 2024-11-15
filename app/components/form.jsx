@@ -6,10 +6,10 @@ import FeedbackForm from './feedbackForm';
 
 const Form = () => {
   return (
-    <section id='contact' className='h-screen' >
-      <div className='w-full h-screen flex flex-col lg:flex-row items-center'>
+    <section id='contact' className='h-screen p-5 md:p-10' >
+      <div className='w-full h-[90vh] flex flex-col lg:flex-row items-center backdrop-blur-lg bg-white/60 shadow-lg rounded-2xl md:p-10'>
         <div className='hidden lg:block relative w-[60%] md:p-10 lg:pr-0 lg:h-[100%] overflow-hidden'>
-          <div className="relative z-[-1] md:z-0 top-[15%]">
+          <div className="relative z-[-1] md:z-0">
             <HeroModel />
           </div>
         </div>
