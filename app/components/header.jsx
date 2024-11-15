@@ -74,10 +74,10 @@ const Header = () => {
                 About
               </a>
               <a href="#feedback" onClick={closeMenu} className="block hover:text-primary transition-colors">
-                Feedback
+                Reviews
               </a>
               <a href="#contact" onClick={closeMenu} className="block hover:text-primary transition-colors">
-                Contact
+                Feedback
               </a>
               <div className="flex justify-center space-x-4 mt-4 text-xl">
                 <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
@@ -99,8 +99,8 @@ const Header = () => {
           <a href="#home" className="hover:text-primary transition-colors">Home</a>
           <a href="#products" className="hover:text-primary transition-colors">Products</a>
           <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#feedback" className="hover:text-primary transition-colors">Feedback</a>
-          <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+          <a href="#feedback" className="hover:text-primary transition-colors">Reviews</a>
+          <a href="#contact" className="hover:text-primary transition-colors">Feedback</a>
         </div>
 
         {/* Social Media Icons for Larger Screens */}

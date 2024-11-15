@@ -45,39 +45,35 @@ const FeedbackForm = () => {
     };
 
     return (
-        <div className='flex flex-col w-full h-full items-center justify-center'>
-            <form id='form' className='flex flex-col p-10 w-full bg-white' onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Feedback:
-                    <textarea
-                        name="feedback"
-                        value={formData.feedback}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
+        <div className="w-full flex items-center justify-center">
+            <div className="backdrop-blur-lg bg-white/60 shadow-lg rounded-2xl w-full p-5 md:p-10">
+                <form className="flex flex-col space-y-6 " onSubmit={handleSubmit}>
+                    {['name', 'email', 'feedback'].map((field) => (
+                        <div className="relative" key={field}>
+                            <input
+                                type={field === 'email' ? 'email' : 'text'}
+                                name={field}
+                                value={formData[field]}
+                                onChange={handleChange}
+                                required
+                                placeholder=" " // placeholder ensures the label floats correctly
+                                className="block pt-5 px-0 w-full text-[1rem] md:text-[1.2rem] text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#600E9B] focus:outline-none focus:ring-0 focus:border-[#600E9B] peer font-content"
+                            />
+                            <label
+                                className="peer-focus:font-medium absolute text-[1rem] md:text-[1.2rem] text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#600E9B] peer-focus:dark:text-[#600E9B] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 font-pacifico"
+                            >
+                                {field.charAt(0).toUpperCase() + field.slice(1)}
+                            </label>
+                        </div>
+                    ))}
+                    <button
+                        type="submit"
+                        className="button-36 font-mainheading text-[1rem] md:text-[1.5rem]"
+                    >
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
