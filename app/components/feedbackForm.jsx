@@ -46,7 +46,7 @@ const FeedbackForm = () => {
 
     return (
         <div className="w-full flex items-center justify-center">
-            <div className="backdrop-blur-lg bg-white/60 shadow-lg rounded-2xl w-full p-5 md:p-10">
+            <div className="w-full p-5 md:p-10">
                 <form className="flex flex-col space-y-6 " onSubmit={handleSubmit}>
                     {['name', 'email', 'feedback'].map((field) => (
                         <div className="relative" key={field}>

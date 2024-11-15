@@ -74,7 +74,7 @@ export default function Home() {
         <ParallaxSection image="/images/hero_background.jpg">
           <Feedback/>
         </ParallaxSection>
-        <ParallaxSection image="/images/feedback.jpg">
+        <ParallaxSection image="/images/feedback_form.jpg">
           <Form />
         </ParallaxSection>
         <Footer />
