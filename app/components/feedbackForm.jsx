@@ -1,55 +1,85 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const FeedbackForm = () => {
-  
     const [formData, setFormData] = useState({
-        name:'',
-        email:'',
-        feedback:''
-    })
+        name: '',
+        email: '',
+        feedback: '',
+    });
 
     const handleChange = (e) => {
-        const {name,value} = e.target;
-        setFormData({ ...formData, [name]: value})
-    }
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch('/api/submitFeedback', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(formData)
+
+        console.log('Form Data:', formData);
+        console.log('API Endpoint:', process.env.NEXT_PUBLIC_GOOGLE_SHEET_API);
+
+        fetch(process.env.NEXT_PUBLIC_GOOGLE_SHEET_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+            mode: 'no-cors',
+        })
+            .then(() => {
+                alert('Form submitted successfully');
+                // Clear the form
+                setFormData({
+                    name: '',
+                    email: '',
+                    feedback: '',
+                });
             })
-            if(response.ok) {
-                alert('Feedback submitted successfully!')
-            } else {
-                alert('Error submitting feedback!')
-            }
-        } catch(error) {
-            console.error('Submission error: ', error)
-        }
-    }
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Form submission failed');
+            });
+    };
 
-  return (
-    <div className='flex flex-col bg-red-400 w-full h-full items-center justify-center'>
-    <form onSubmit={handleSubmit} className='flex flex-col p-10 w-full'>
-      <label>
-        Name:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-      </label>
-      <label>
-        Email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-      </label>
-      <label>
-        Feedback:
-        <textarea name="feedback" value={formData.feedback} onChange={handleChange} required />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
-    </div>
-  )
-}
+    return (
+        <div className='flex flex-col w-full h-full items-center justify-center'>
+            <form id='form' className='flex flex-col p-10 w-full bg-white' onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Email:
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label>
+                    Feedback:
+                    <textarea
+                        name="feedback"
+                        value={formData.feedback}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
+};
 
-export default FeedbackForm
+export default FeedbackForm;

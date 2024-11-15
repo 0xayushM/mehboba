@@ -28,13 +28,6 @@ function Model() {
 }
 
 export default function PackageModel2() {
-  const [pixelRatio, setPixelRatio] = useState(1);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    }
-  }, []);
 
   return (
     <div className='relative'>
@@ -42,7 +35,6 @@ export default function PackageModel2() {
         style={{ height: '40vh', position: 'relative', zIndex: 10 }}
         camera={{ position: [0, 2, 5], fov: 70 }}
         shadows
-        pixelRatio={pixelRatio}
       >
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
